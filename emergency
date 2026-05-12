@@ -1,0 +1,92 @@
+public class Emergency {
+	
+    private String date;
+    private String time;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String phoneNumber;
+    private String emergencyType;
+    private String severityLevel;
+    private String responseType;
+    private String statusType;
+
+    public Emergency(String first, String date, String last, String time, String location, String phone, String emergency, String severity, 
+            String response, String status){
+    	  this.date = date;
+        firstName = first;
+        lastName = last;
+        this.time = time;
+        address = location;
+        phoneNumber = phone;
+        emergencyType = emergency;
+        severityLevel = severity;
+        responseType = response;
+        statusType = status;
+    }
+    
+    public void setFirstName(String first){
+        firstName = first;
+     }
+    public String getFirstName(){
+        return firstName;
+    }
+    
+    public void setLasttName(String last){
+        lastName = last;
+     }
+    public String getLastName(){
+        return lastName;
+    }
+    
+    public void setDate(String date){
+        this.date = date;
+     }
+    public String getDate(){
+        return date;
+    }
+    
+    public void setTime(String time){
+        this.time = time;
+     }
+    public String getTime(){
+        return time;
+    }
+    
+    public void setAddress(String location){
+    	address = location;
+        }
+    public String getAddress(){
+        return address;
+    }
+    
+    public void setPhoneNumber(String phoneNumber){
+
+    }
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+    
+    public void setEmergencyType(String emergency){
+        emergencyType = emergency;
+    }
+    public String getEmergencyType(){
+        return emergencyType;
+    }
+    
+    public void setSeverityLevel(String severity){
+    	severityLevel = severity;
+    }
+    public String getSeverityLevel(){
+        return severityLevel;
+    }
+
+    public String getResponseType(){
+        return "Alright, we have alerted someone about your emergency!";
+    }
+    
+    public String statusType(){
+        return statusType();
+    }
+
+}
