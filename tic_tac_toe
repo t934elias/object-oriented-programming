@@ -1,0 +1,165 @@
+import java.util.Scanner;
+
+public class TicTacToe {
+
+	public enum Content{X, O, EMPTY};
+	private Content[][] table;
+	private Content currentPlayer;
+	private String name1;
+	private String name2;
+	
+	 
+	 public static Scanner in = new Scanner(System.in);
+	
+	public TicTacToe()
+	{
+		table = new Content[3][3];
+		for(int i = 0; i < 3; i++)
+		{
+			for(int j = 0; j < 3; j++)
+			{
+				table[i][j] = Content.EMPTY ; 
+				currentPlayer = Content.X;
+			}
+		}
+	}
+	
+	public void setName1(String n) {
+		name1 = n;
+	}
+	public String getName1() {
+		return name1;
+	}
+	
+	public void setName2(String n) {
+		name2 = n;
+	}
+	public String getName2() {
+		return name2;
+	}
+	
+	public void printPlayer(){
+		if(currentPlayer == Content.X)
+		    System.out.print("player X won! Congratulation " + getName1() +  "!");
+		else
+			System.out.print("player O won! Congratulation " + getName2() + "!");
+	}
+	
+	public void printTable()
+	{
+		System.out.println( "_________");
+		for(int i = 0; i < 3; i++)
+		{
+			for(int j = 0; j < 3; j++)
+			{
+				System.out.print( "|");
+				 System.out.print(table[i][j]);
+			}
+			System.out.println("|");
+			System.out.println("________");
+		}
+	}
+	
+	public boolean isTableFull() {
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
+                if (table[i][j] == Content.EMPTY) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+	
+	public boolean playerHasWon() {
+	      for (int i = 0; i < 3; i++) {
+	         if (table[i][0] == table[i][1] && table[i][1] == table[i][2] && table[i][0] != Content.EMPTY) {
+	            return true;
+	         }
+	      }
+
+	      for (int j = 0; j < 3; j++) {
+	         if (table[0][j] == table[1][j] && table[1][j] == table[2][j] && table[0][j] != Content.EMPTY) {
+	            return true;
+	         }
+	      }
+
+	      if (table[0][0] == table[1][1] && table[1][1] == table[2][2] && table[0][0] != Content.EMPTY) {
+	         return true;
+	      }
+
+	      if (table[2][0] == table[1][1] && table[1][1] == table[0][2] && table[2][0] != Content.EMPTY) {
+	         return true;
+	      }
+
+	      return false;
+	   }
+	
+	public void changePlayer() {
+        if( currentPlayer == Content.X)
+        	currentPlayer = Content.O;
+        else
+        	currentPlayer = Content.X;
+    }
+	
+    public void updateTable() {
+        boolean validInput = false;
+        do {
+         if (currentPlayer == Content.X) {
+            System.out.print("Player 'X', " + getName1()+ ", enter your move: ");
+         } else {
+            System.out.print("Player 'O', " + getName2()+ " enter your move: ");
+         }
+         int row = in.nextInt() - 1;  
+         int col = in.nextInt() - 1;
+         
+         if (row >= 0 && row < 3 && col >= 0 && col < 3 
+             && table[row][col] == Content.EMPTY) {
+            table[row][col] = currentPlayer; 
+            validInput = true;  
+         } else {
+            System.out.println("Sorry, the move at (" 
+                               + (row + 1) + ", " + (col + 1)
+                               + ") is not valid. Please try again");
+         }
+      } while (!validInput);  // repeat until input is valid
+    }
+}
+
+import java.util.Scanner;
+
+public class TicTacToeTest {
+
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		
+		TicTacToe t1 = new TicTacToe();
+        boolean gameStatus = false; 
+        
+        System.out.print("enter the name of the player that wants to go first: ");
+        t1.setName1(in.next());
+        
+        System.out.print("enter the name of the player that wants to go second: ");
+        t1.setName2(in.next());
+        
+        do {
+            t1.updateTable();
+            t1.printTable();
+           
+            if (t1.playerHasWon()) {
+                t1.printPlayer();
+                gameStatus = true;
+            }
+            else if (t1.isTableFull()) {
+                System.out.println("We have a draw!");
+                gameStatus = true;
+            }
+            else {
+            	System.out.println("We are still going");
+            }
+            
+            t1.changePlayer();  
+        } while (gameStatus == false);
+	}
+}
